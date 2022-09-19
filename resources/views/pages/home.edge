@@ -1,0 +1,44 @@
+@layout('layouts/app')
+@set('title', 'AdonisJS - 2FA Example')
+
+@section('body')
+  <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="mx-auto">
+      <div class="text-center text-3xl font-bold tracking-tight text-gray-900">
+        Two factor authentication tutorial.
+      </div>
+      <div class="my-4">
+        @if(auth.isLoggedIn)
+          <div class="flex items-center justify-center">
+            <form 
+              action="/settings"
+              method="GET"
+            >
+              <button
+                type="submit"
+                class="px-auto items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs 
+                  font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none
+                "
+              > 
+                Settings
+              </button>
+            </form>
+            <form 
+              action="/logout"
+              method="POST"
+            >
+              <button
+                type="submit"
+                class="px-auto items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs 
+                  font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none
+                "
+              > 
+                Logout
+              </button>
+            </form>
+          </div>
+        @end
+      </div>
+    </div>  
+  </div>
+@endsection

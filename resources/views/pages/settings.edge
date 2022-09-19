@@ -1,0 +1,118 @@
+@layout('layouts/app')
+@set('title', 'Settings')
+
+@section('body')
+  <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div class="space-y-4">
+      <div class="my-12 text-center text-3xl font-bold tracking-tight text-gray-900">
+        SETTINGS
+      </div>
+      @if(status)
+        @!component('components/alert', {
+          status
+        })      
+      @endif
+
+      @if(twoFactorEnabled)
+      <div class="w-1/2 space-y-4 bg-gray-100 p-8">
+        <h3 class="text-lg font-medium text-gray-900">
+          You have enabled two factor authentication.
+        </h3>
+        <div class="mt-3 max-w-xl text-sm text-gray-600">
+          <p>
+            When two factor authentication is enabled, you will be prompted for a secure, random
+            token during authentication. You may retrieve this token from your phone's Google
+            Authenticator application.
+          </p>
+        </div>
+        @if(code)
+          <div>
+            <div class="mt-4 max-w-xl text-sm text-gray-600">
+              <p class="font-semibold">
+                Two factor authentication is now enabled. Scan the following QR code using your
+                phone's authenticator application.
+              </p>
+            </div>
+
+            <div class="mt-4">
+              <img src="{{ code.svg }}" />
+            </div>
+          </div>
+        @endif
+        @if(recoveryCodes)
+          <div class="mt-4 max-w-xl text-sm text-gray-600">
+            <p class="font-semibold">
+              Store these recovery codes in a secure password manager. They can be used to recover
+              access to your account if your two factor authentication device is lost.
+            </p>
+          </div>
+          <div
+            class="mt-4 grid max-w-xl gap-1 rounded-lg bg-gray-100 px-4 py-4 font-mono text-sm"
+          >
+            @each(code in recoveryCodes)
+              <div>
+                {{ code }}
+              </div>
+            @endeach
+          </div>
+        @endif
+        <div class="flex justify-between">
+          <form 
+            action="{{ route('UserController.fetchRecoveryCodes') }}"
+            method="GET"
+          >
+            <button
+              type="submit"
+              class="px-auto items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs 
+                font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none
+              "
+            > 
+              Show Recovery Codes
+            </button>
+          </form>
+          <form 
+            action="{{ route('UserController.disableTwoFactorAuthentication') }}"
+            method="POST"
+          >
+            <button
+              type="submit"
+              class="px-auto items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs 
+                font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none
+              "
+            > 
+              Disable
+            </button>
+          </form>
+
+        </div>
+      </div>
+      @elseif(!twoFactorEnabled)
+        <div class="w-1/2 space-y-4">
+          <div class="text-lg font-medium text-gray-900">
+            You have not enabled two factor authentication.
+          </div>
+          <div class="text-sm text-gray-600">
+            When two factor authentication is enabled, you will be prompted for a secure, 
+            random token during authentication. You may retrieve this token from your phone's 
+            Google Authenticator application.
+          </div>
+          <div>
+            <form 
+              action="{{ route('UserController.enableTwoFactorAuthentication') }}"
+              method="POST"
+            >
+              <button
+                type="submit"
+                class="px-auto items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs 
+                  font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none
+                "
+              >
+                Enable
+              </button>
+            </form>
+          </div>
+        </div>
+      @endif
+    </div>  
+  </div>
+@endsection
