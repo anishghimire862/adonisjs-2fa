@@ -1,0 +1,7 @@
+- Migrating the Database 
+- Updating Model
+- Creating a User Controller to enable 2FA
+- Creating an Auth Provider class
+- Generating the QR Code
+- Setting up an account on 2FA Applications
+- Two Factor Challenge
