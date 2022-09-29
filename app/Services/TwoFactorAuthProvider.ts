@@ -16,9 +16,11 @@ class TwoFactorAuthProvider {
   }
 
   public async generateRecoveryCodes() {
+    const recoveryCodeLimit: number = 8
     const codes: string[] = []
-    for (let i = 0; i < 8; i++) {
-      codes.push(`${await this.secureRandomString()}-${await this.secureRandomString()}`)
+    for (let i = 0; i < recoveryCodeLimit; i++) {
+      const recoveryCode: string = `${await this.secureRandomString()}-${await this.secureRandomString()}`
+      codes.push(recoveryCode)
     }
     return codes
   }
