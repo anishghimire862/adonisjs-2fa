@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build-test": "node ace build --production",
-    "build": "node ace build --production"
+    "build": "node ace build --production",
     "start": "node server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write ."
