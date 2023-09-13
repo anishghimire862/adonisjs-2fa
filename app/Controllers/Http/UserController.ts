@@ -41,13 +41,4 @@ export default class UserController {
       recoveryCodes: user.twoFactorRecoveryCodes
     })
   }
-
-    public async test({ auth, view }) {
-    const user = auth?.user
-
-    return view.render('pages/settings', {
-      twoFactorEnabled: user.isTwoFactorEnabled,
-      recoveryCodes: user.twoFactorRecoveryCodes
-    })
-  }
 }
