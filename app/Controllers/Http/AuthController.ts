@@ -3,7 +3,7 @@ import User from 'App/Models/User'
 const twoFactor = require('node-2fa')
 
 export default class AuthController {
-  public async login({ request, response, auth, view, session }) {
+  public async login({ request, response, auth, view, session }) 
     const { email, password } = request.only(['email', 'password'])
     try {
       const user = await auth.use('web').verifyCredentials(email, password)
